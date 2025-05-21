@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>CUSTOM SMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --text-color: #f0f0f0;
+            --box-bg: rgba(34,34,34,0.85);
+        }
+
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #0f0f0f;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0 20px;
+            background-color: var(--box-bg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header img {
+            height: auto;
+            max-height: 100px;
+            max-width: 90%;
+            object-fit: contain;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 30px auto;
+            background: var(--box-bg);
+            padding: 30px 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 16px;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            font-size: 15px;
+            background: #333;
+            color: #f0f0f0;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            margin-top: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .sms-info {
+            font-size: 13px;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 25px;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #58a6ff;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .header img {
+                max-height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Animated Background -->
+<div id="particles-js"></div>
+
+<div class="header">
+    <img src="https://files.catbox.moe/slxaeg.png" alt="TBB Logo">
+</div>
+
+<div class="container">
+    <h2> CYBER SOJIB CUSTOM SMS </h2>
+    <form method="POST">
+        <label>📱 মোবাইল নাম্বার:</label>
+        <input type="text" name="number" placeholder="013XXXXXXXX" required pattern="01[0-9]{9}">
+
+        <label>✉️ মেসেজ:</label>
+        <textarea name="message" id="messageBox" placeholder="আপনার মেসেজ লিখুন..." rows="4" required></textarea>
+        <div class="sms-info" id="smsInfo">অক্ষর: 0 | এসএমএস: 0</div>
+
+        <button type="submit">📤 মেসেজ পাঠান</button>
+    </form>
+
+    <div class="footer">
+        🔗 <a href="t.me/Cybersojib12" target="_blank">Join our Telegram Channel</a>
+    </div>
+</div>
+
+<div class="toast" id="toastBox"></div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#00ffcc" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.5 },
+            "size": { "value": 3 },
+            "line_linked": { "enable": true, "distance": 150, "color": "#00ffcc", "opacity": 0.4, "width": 1 },
+            "move": { "enable": true, "speed": 3 }
+        },
+        "interactivity": {
+            "events": { "onhover": { "enable": true, "mode": "repulse" }, "resize": true }
+        },
+        "retina_detect": true
+    });
+
+    const textarea = document.getElementById('messageBox');
+    const smsInfo = document.getElementById('smsInfo');
+    const toast = document.getElementById('toastBox');
+
+    textarea.addEventListener('input', function () {
+        const length = textarea.value.length;
+        const smsCount = length === 0 ? 0 : Math.ceil(length / 160);
+        smsInfo.textContent = `অক্ষর: ${length} | এসএমএস: ${smsCount}`;
+    });
+
+    </script>
+
+</body>
+</html>
